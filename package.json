@@ -1,0 +1,21 @@
+{
+  "name": "serverless-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "serverless-http": "^3.2.0",
+    "lodash": "^4.17.15",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5"
+  },
+  "scripts": {
+    "dev": "serverless offline",
+    "deploy": "serverless deploy",
+    "remove": "serverless remove"
+  },
+  
+  "devDependencies": {
+    "serverless-offline": "^13.6.0"
+  }
+}
