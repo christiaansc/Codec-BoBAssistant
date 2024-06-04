@@ -10,8 +10,8 @@
     "dotenv": "^16.4.5"
   },
   "scripts": {
-    "dev": "serverless offline",
-    "deploy": "serverless deploy",
+    "dev": "serverless offline --stage dev",
+    "deploy": "serverless deploy --stage prod --region us-east-2",
     "remove": "serverless remove"
   },
   

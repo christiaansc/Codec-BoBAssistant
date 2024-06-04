@@ -3,7 +3,7 @@ org: csdev0
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: serverless-nodejs
 
-frameworkVersion: "4"
+useDotenv: true
 
 provider:
   name: aws
