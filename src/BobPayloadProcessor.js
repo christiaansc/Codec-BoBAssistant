@@ -40,7 +40,7 @@
 // ┌───────────────────────────────────────────────────────────────────────────┐
 // | IMPORT ++                                                                 |
 // └───────────────────────────────────────────────────────────────────────────┘
-const {range, isNumber, isArray, isEmpty} = require('lodash');
+const { range, isNumber, isArray, isEmpty } = require('lodash');
 
 // ┌───────────────────────────────────────────────────────────────────────────┐
 // | IMPORT --                                                                 |
@@ -53,44 +53,44 @@ const {range, isNumber, isArray, isEmpty} = require('lodash');
 const COMPONENT_NAME = 'BobPayloadProcessor';
 const BOB_PROPS = Object.freeze({
   /* Learning  */
-  learningfromscratch   : 'learningfromscratch',
-  temperature           : 'temperature',
-  learningpercentage    : 'learningpercentage',
-  vibrationlevel        : 'vibrationlevel',
-  fft                   : 'fft',
+  learningfromscratch: 'learningfromscratch',
+  temperature: 'temperature',
+  learningpercentage: 'learningpercentage',
+  vibrationlevel: 'vibrationlevel',
+  fft: 'fft',
 
   /* report */
-  anomalylevel                : 'anomalylevel',
-  vibrationpercentage         : 'vibrationpercentage',      /* new -> Operating Time: (Report Period * Percentage Vibration) / 100 */
-  goodvibration               : 'goodvibration',            /* new - unused */
-  operatingtime               : 'operatingtime',
-  totaloperatingtimeknown     : 'totaloperatingtimeknown',
-  totalunknown1020            : 'totalunknown1020',
-  totalunknown2040            : 'totalunknown2040',
-  totalunknown4060            : 'totalunknown4060',
-  totalunknown6080            : 'totalunknown6080',
-  totalunknown80100           : 'totalunknown80100',
-  reportlength                : 'reportlength',
-  reportid                    : 'reportid',                 /* new - unused */
-  nbalarmreport               : 'nbalarmreport',
+  anomalylevel: 'anomalylevel',
+  vibrationpercentage: 'vibrationpercentage',      /* new -> Operating Time: (Report Period * Percentage Vibration) / 100 */
+  goodvibration: 'goodvibration',            /* new - unused */
+  operatingtime: 'operatingtime',
+  totaloperatingtimeknown: 'totaloperatingtimeknown',
+  totalunknown1020: 'totalunknown1020',
+  totalunknown2040: 'totalunknown2040',
+  totalunknown4060: 'totalunknown4060',
+  totalunknown6080: 'totalunknown6080',
+  totalunknown80100: 'totalunknown80100',
+  reportlength: 'reportlength',
+  reportid: 'reportid',                 /* new - unused */
+  nbalarmreport: 'nbalarmreport',
   // temperature              : 'temperature',
   // vibrationlevel           : 'vibrationlevel',
-  batterypercentage           : 'batterypercentage',
-  peakfrequencyindex          : 'peakfrequencyindex',
-  badvibrationpercentage1020  : 'badvibrationpercentage1020',
-  badvibrationpercentage2040  : 'badvibrationpercentage2040',
-  badvibrationpercentage4060  : 'badvibrationpercentage4060',
-  badvibrationpercentage6080  : 'badvibrationpercentage6080',
-  badvibrationpercentage80100 : 'badvibrationpercentage80100',
-  anomalylevelto20last24h     : 'anomalylevelto20last24h',
-  anomalylevelto50last24h     : 'anomalylevelto50last24h',
-  anomalylevelto80last24h     : 'anomalylevelto80last24h',
-  anomalylevelto20last30d     : 'anomalylevelto20last30d',
-  anomalylevelto50last30d     : 'anomalylevelto50last30d',
-  anomalylevelto80last30d     : 'anomalylevelto80last30d',
-  anomalylevelto20last6mo     : 'anomalylevelto20last6mo',
-  anomalylevelto50last6mo     : 'anomalylevelto50last6mo',
-  anomalylevelto80last6mo     : 'anomalylevelto80last6mo',
+  batterypercentage: 'batterypercentage',
+  peakfrequencyindex: 'peakfrequencyindex',
+  badvibrationpercentage1020: 'badvibrationpercentage1020',
+  badvibrationpercentage2040: 'badvibrationpercentage2040',
+  badvibrationpercentage4060: 'badvibrationpercentage4060',
+  badvibrationpercentage6080: 'badvibrationpercentage6080',
+  badvibrationpercentage80100: 'badvibrationpercentage80100',
+  anomalylevelto20last24h: 'anomalylevelto20last24h',
+  anomalylevelto50last24h: 'anomalylevelto50last24h',
+  anomalylevelto80last24h: 'anomalylevelto80last24h',
+  anomalylevelto20last30d: 'anomalylevelto20last30d',
+  anomalylevelto50last30d: 'anomalylevelto50last30d',
+  anomalylevelto80last30d: 'anomalylevelto80last30d',
+  anomalylevelto20last6mo: 'anomalylevelto20last6mo',
+  anomalylevelto50last6mo: 'anomalylevelto50last6mo',
+  anomalylevelto80last6mo: 'anomalylevelto80last6mo',
 
   /* alarm */
   // anomalylevel           : 'anomalylevel',
@@ -99,7 +99,7 @@ const BOB_PROPS = Object.freeze({
   // fft                    : 'fft',
 
   /* startstop */
-  state                     : 'state',
+  state: 'state',
 });
 
 const constants = Object.freeze({
@@ -111,15 +111,15 @@ const constants = Object.freeze({
     SIGNIFICATION: 'L',
     SIGNIFICATION_VALUE: {
       MPU6500: 76,
-      KX     : 108,
+      KX: 108,
     },
     PROPERTIES_BYTE_IDX: {
-      [BOB_PROPS.learningpercentage]    : 1,
-      [BOB_PROPS.vibrationlevel]        : [2, 3, 4],
-      [BOB_PROPS.peakfrequencyindex]    : 5,
-      [BOB_PROPS.temperature]           : 6,
-      [BOB_PROPS.learningfromscratch]   : 7,
-      [BOB_PROPS.fft]                   : range(8, 39 + 1), /* 32 fft -> 32 bytes: 8 -> 39 */
+      [BOB_PROPS.learningpercentage]: 1,
+      [BOB_PROPS.vibrationlevel]: [2, 3, 4],
+      [BOB_PROPS.peakfrequencyindex]: 5,
+      [BOB_PROPS.temperature]: 6,
+      [BOB_PROPS.learningfromscratch]: 7,
+      [BOB_PROPS.fft]: range(8, 39 + 1), /* 32 fft -> 32 bytes: 8 -> 39 */
     },
   },
 
@@ -130,33 +130,33 @@ const constants = Object.freeze({
     SIGNIFICATION: 'R',
     SIGNIFICATION_VALUE: {
       MPU6500: 82,
-      KX     : 114,
+      KX: 114,
     },
     PROPERTIES_BYTE_IDX: {
-      [BOB_PROPS.anomalylevel]                : 1,
-      [BOB_PROPS.vibrationpercentage]         : 2,            // Operating time  of the monitored equipment over the report length
-      [BOB_PROPS.goodvibration]               : 3,
-      [BOB_PROPS.nbalarmreport]               : 4,
-      [BOB_PROPS.temperature]                 : 5,
-      [BOB_PROPS.reportlength]                : 6,
-      [BOB_PROPS.reportid]                    : 7,
-      [BOB_PROPS.vibrationlevel]              : [8, 9, 10],
-      [BOB_PROPS.peakfrequencyindex]          : 11,
-      [BOB_PROPS.badvibrationpercentage1020]  : 12,
-      [BOB_PROPS.badvibrationpercentage2040]  : 13,
-      [BOB_PROPS.badvibrationpercentage4060]  : 14,
-      [BOB_PROPS.badvibrationpercentage6080]  : 15,
-      [BOB_PROPS.badvibrationpercentage80100] : 16,
-      [BOB_PROPS.batterypercentage]           : 17,
-      [BOB_PROPS.anomalylevelto20last24h]     : 18,
-      [BOB_PROPS.anomalylevelto50last24h]     : 19,
-      [BOB_PROPS.anomalylevelto80last24h]     : 20,
-      [BOB_PROPS.anomalylevelto20last30d]     : 21,
-      [BOB_PROPS.anomalylevelto50last30d]     : 22,
-      [BOB_PROPS.anomalylevelto80last30d]     : 23,
-      [BOB_PROPS.anomalylevelto20last6mo]     : 24,
-      [BOB_PROPS.anomalylevelto50last6mo]     : 25,
-      [BOB_PROPS.anomalylevelto80last6mo]     : 26,
+      [BOB_PROPS.anomalylevel]: 1,
+      [BOB_PROPS.vibrationpercentage]: 2,            // Operating time  of the monitored equipment over the report length
+      [BOB_PROPS.goodvibration]: 3,
+      [BOB_PROPS.nbalarmreport]: 4,
+      [BOB_PROPS.temperature]: 5,
+      [BOB_PROPS.reportlength]: 6,
+      [BOB_PROPS.reportid]: 7,
+      [BOB_PROPS.vibrationlevel]: [8, 9, 10],
+      [BOB_PROPS.peakfrequencyindex]: 11,
+      [BOB_PROPS.badvibrationpercentage1020]: 12,
+      [BOB_PROPS.badvibrationpercentage2040]: 13,
+      [BOB_PROPS.badvibrationpercentage4060]: 14,
+      [BOB_PROPS.badvibrationpercentage6080]: 15,
+      [BOB_PROPS.badvibrationpercentage80100]: 16,
+      [BOB_PROPS.batterypercentage]: 17,
+      [BOB_PROPS.anomalylevelto20last24h]: 18,
+      [BOB_PROPS.anomalylevelto50last24h]: 19,
+      [BOB_PROPS.anomalylevelto80last24h]: 20,
+      [BOB_PROPS.anomalylevelto20last30d]: 21,
+      [BOB_PROPS.anomalylevelto50last30d]: 22,
+      [BOB_PROPS.anomalylevelto80last30d]: 23,
+      [BOB_PROPS.anomalylevelto20last6mo]: 24,
+      [BOB_PROPS.anomalylevelto50last6mo]: 25,
+      [BOB_PROPS.anomalylevelto80last6mo]: 26,
     },
   },
 
@@ -166,15 +166,15 @@ const constants = Object.freeze({
     SIGNIFICATION: 'A',
     SIGNIFICATION_VALUE: {
       MPU6500: 65,
-      KX     : 97,
+      KX: 97,
     },
     PROPERTIES_BYTE_IDX: {
-      [BOB_PROPS.anomalylevel]  : 1,
-      [BOB_PROPS.temperature]   : 2,
+      [BOB_PROPS.anomalylevel]: 1,
+      [BOB_PROPS.temperature]: 2,
       /* NA: 3 */
       [BOB_PROPS.vibrationlevel]: [4, 5, 6],
       /* NA: 7 */
-      [BOB_PROPS.fft]           : range(8, 39 + 1),
+      [BOB_PROPS.fft]: range(8, 39 + 1),
     },
   },
 
@@ -184,10 +184,10 @@ const constants = Object.freeze({
     SIGNIFICATION: 'Header',
     SIGNIFICATION_VALUE: {
       MPU6500: 83,
-      KX     : 83,
+      KX: 83,
     },
     PROPERTIES_BYTE_IDX: {
-      [BOB_PROPS.state]            : 1,
+      [BOB_PROPS.state]: 1,
       [BOB_PROPS.batterypercentage]: 2,
     },
   },
@@ -208,14 +208,14 @@ const constants = Object.freeze({
 
 const ONE_BYTE_LENGTH = 2;
 const SENSOR_STATES = Object.freeze({
-  SENSOR_START  : 0,
-  SENSOR_STOP   : 1,
-  MACHINE_START : 2,
-  MACHINE_STOP  : 3,
+  SENSOR_START: 0,
+  SENSOR_STOP: 1,
+  MACHINE_START: 2,
+  MACHINE_STOP: 3,
   SENSOR_STOP_WITH_ERASE: 4,
   SENSOR_STOP_NO_VIB: 5,
   SENSOR_START_NO_VIB: 6,
-  SENSOR_LEARN_KEEPALIVE: 7,  
+  SENSOR_LEARN_KEEPALIVE: 7,
 });
 const LIST_MPU_SENSOR_SIGNIFICATION_VALUES = Object.freeze([
   constants.LEARNING.SIGNIFICATION_VALUE.MPU6500,
@@ -376,14 +376,14 @@ function _findTotalUnknownsInReport(propertiesValue, rawPayload, messageType) {
 
   const reportLength = propertiesValue[BOB_PROPS.reportlength];
   const operatingTime = propertiesValue[BOB_PROPS.operatingtime];
-  const totalOperatingTimeKnown = propertiesValue[BOB_PROPS.totaloperatingtimeknown] = Math.round(propertiesValue[BOB_PROPS.goodvibration] * reportLength / 127);
+  const totalOperatingTimeKnown = propertiesValue[BOB_PROPS.totaloperatingtimeknown] = Math.round(propertiesValue[BOB_PROPS.goodvibration] * operatingTime / 127);
   const operatingTimeUnknown = operatingTime - totalOperatingTimeKnown;
 
-  propertiesValue[BOB_PROPS.totalunknown1020] = Math.round(operatingTimeUnknown * propertiesValue[BOB_PROPS.badvibrationpercentage1020] / 127);
-  propertiesValue[BOB_PROPS.totalunknown2040] = Math.round(operatingTimeUnknown * propertiesValue[BOB_PROPS.badvibrationpercentage2040] / 127);
-  propertiesValue[BOB_PROPS.totalunknown4060] = Math.round(operatingTimeUnknown * propertiesValue[BOB_PROPS.badvibrationpercentage4060] / 127);
-  propertiesValue[BOB_PROPS.totalunknown6080] = Math.round(operatingTimeUnknown * propertiesValue[BOB_PROPS.badvibrationpercentage6080] / 127);
-  propertiesValue[BOB_PROPS.totalunknown80100] = Math.round(operatingTimeUnknown * propertiesValue[BOB_PROPS.badvibrationpercentage80100] / 127);
+  propertiesValue[BOB_PROPS.totalunknown1020] = Math.round((operatingTime - totalOperatingTimeKnown) * propertiesValue[BOB_PROPS.badvibrationpercentage1020] / 127);
+  propertiesValue[BOB_PROPS.totalunknown2040] = Math.round((operatingTime - totalOperatingTimeKnown) * propertiesValue[BOB_PROPS.badvibrationpercentage2040] / 127);
+  propertiesValue[BOB_PROPS.totalunknown4060] = Math.round((operatingTime - totalOperatingTimeKnown) * propertiesValue[BOB_PROPS.badvibrationpercentage4060] / 127);
+  propertiesValue[BOB_PROPS.totalunknown6080] = Math.round((operatingTime - totalOperatingTimeKnown) * propertiesValue[BOB_PROPS.badvibrationpercentage6080] / 127);
+  propertiesValue[BOB_PROPS.totalunknown80100] = Math.round((operatingTime - totalOperatingTimeKnown) * propertiesValue[BOB_PROPS.badvibrationpercentage80100] / 127);
 }
 
 /**
